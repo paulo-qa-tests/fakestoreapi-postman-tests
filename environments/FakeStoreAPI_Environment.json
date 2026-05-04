@@ -1,0 +1,34 @@
+{
+	"id": "7919a913-66a6-4f6e-9a8f-9abeec7a389e",
+	"name": "FakeStoreAPI Environment",
+	"values": [
+		{
+			"key": "base_url",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "auth_token",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "product_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "user_id",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"color": null,
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2026-04-27T14:28:27.101Z",
+	"_postman_exported_using": "Postman/12.8.0"
+}

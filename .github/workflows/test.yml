@@ -1,0 +1,30 @@
+name: Testes API
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: 📥 Baixar código
+        uses: actions/checkout@v4
+      
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+      
+      - name: 📦 Instalar Newman
+        run: npm install -g newman
+      
+      - name: 🧪 Executar testes
+        run: |
+          newman run collections/FakeStoreAPI_Complete_Tests.postman_collection.json \
+            -e environments/FakeStoreAPI_Environment.json \
+            --reporters cli

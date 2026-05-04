@@ -1,0 +1,1182 @@
+{
+  "info": {
+    "_postman_id": "6a4ae46b-8aba-4834-9b43-997a02ebac51",
+    "name": "FakeStoreAPI Tests",
+    "description": "StartFragment`Testes automatizados para a FakeStoreAPI - Projeto Portfólio`EndFragment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54341950",
+    "_collection_link": "https://go.postman.co/collection/54341950-6a4ae46b-8aba-4834-9b43-997a02ebac51?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "GET All Products",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste para validar se o status da resposta HTTP é 200 (OK)\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste para validar se o corpo da resposta é um array\r",
+                  "pm.test(\"Response is an array\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.be.an('array');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste para validar se o array retornado possui pelo menos 1 item (produto)\r",
+                  "pm.test(\"Array has at least 1 product\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.length).to.be.at.least(1);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://fakestoreapi.com/products",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Single Product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste para validar se o status da resposta HTTP é 200 (OK)\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste para validar se o ID do produto retornado é igual a 1\r",
+                  "pm.test(\"Product ID is 1\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste para validar se o objeto retornado possui todos os campos obrigatórios\r",
+                  "pm.test(\"Has all required fields\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.all.keys(\r",
+                  "        'id',\r",
+                  "        'title',\r",
+                  "        'price',\r",
+                  "        'description',\r",
+                  "        'category',\r",
+                  "        'image'\r",
+                  "    );\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://fakestoreapi.com/products/1",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "products",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Product Not Found",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste para validar se o status da resposta HTTP é 404 (Not Found)\r",
+                  "pm.test(\"Status code is 404\", function () {\r",
+                  "    pm.response.to.have.status(404);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste para validar se o corpo da resposta é nulo (sem conteúdo)\r",
+                  "pm.test(\"Response is null\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.be.null;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://fakestoreapi.com/products/9999",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "products",
+                "9999"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Create Product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste para validar se o status da resposta HTTP é 200 (OK)\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste para validar se a resposta contém a propriedade 'id'\r",
+                  "pm.test(\"Response contains an ID\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('id');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste para validar se o título retornado na resposta é igual ao enviado na requisição\r",
+                  "pm.test(\"Response matches request title\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.title).to.eql(\"Produto Teste Postman\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Produto Teste Postman\",\r\n    \"price\": 199.99,\r\n    \"description\": \"Produto criado para testes automatizados\",\r\n    \"category\": \"eletrônicos\",\r\n    \"image\": \"https://via.placeholder.com/150\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fakestoreapi.com/products",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "products"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT Update Product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste para validar se o status da resposta HTTP é 200 (OK)\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste para validar se o título do produto foi atualizado corretamente\r",
+                  "pm.test(\"Title was updated\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.title).to.eql(\"Produto Atualizado via Postman\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Produto Atualizado via Postman\",\r\n    \"price\": 299.99,\r\n    \"description\": \"Descrição atualizada pelo teste\",\r\n    \"category\": \"eletrônicos\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fakestoreapi.com/products/1",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "products",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE Delete Product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste para validar se o status da resposta HTTP é 200 (OK)\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste para validar se a resposta da exclusão contém o produto deletado (retorna ao menos o 'id')\r",
+                  "pm.test(\"Response contains deleted product\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('id');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://fakestoreapi.com/products/1",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "products",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Products with Auth",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste para validar se o status da resposta HTTP é 200 (OK)\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste para validar se o token foi enviado corretamente no header Authorization\r",
+                  "pm.test(\"Token was used successfully\", function () {\r",
+                  "    const authHeader = pm.request.headers.get(\"Authorization\");\r",
+                  "    pm.expect(authHeader).to.include(\"Bearer\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{auth_token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/products",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Carts",
+      "item": [
+        {
+          "name": "GET All Carts",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste 1: Verificar status code\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 2: Verificar se resposta é um array\r",
+                  "pm.test(\"Response is an array\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.be.an('array');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 3: Verificar se array não está vazio\r",
+                  "pm.test(\"Array has at least 1 cart\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.length).to.be.at.least(1);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 4: Verificar estrutura do primeiro carrinho\r",
+                  "pm.test(\"First cart has required fields\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    const firstCart = responseData[0];\r",
+                  "    pm.expect(firstCart).to.have.all.keys('id', 'userId', 'date', 'products');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 5: Verificar se products é array\r",
+                  "pm.test(\"Products field is an array\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    const firstCart = responseData[0];\r",
+                  "    pm.expect(firstCart.products).to.be.an('array');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://fakestoreapi.com/carts",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "carts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Single Cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste 1: Status code\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 2: Verificar ID correto\r",
+                  "pm.test(\"Cart ID is 1\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 3: Verificar campos obrigatórios\r",
+                  "pm.test(\"Cart has required fields\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.all.keys('id', 'userId', 'date', 'products');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 4: Verificar tipo dos campos\r",
+                  "pm.test(\"Field types are correct\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.id).to.be.a('number');\r",
+                  "    pm.expect(responseData.userId).to.be.a('number');\r",
+                  "    pm.expect(responseData.date).to.be.a('string');\r",
+                  "    pm.expect(responseData.products).to.be.an('array');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 5: Verificar se products não está vazio\r",
+                  "pm.test(\"Products array is not empty\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.products.length).to.be.greaterThan(0);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://fakestoreapi.com/carts/1",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "carts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Create Cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste 1: Status code de sucesso\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 2: Verificar se retornou ID\r",
+                  "pm.test(\"Response contains an ID\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('id');\r",
+                  "    pm.expect(responseData.id).to.be.a('number');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 3: Verificar se userId está correto\r",
+                  "pm.test(\"UserId matches request\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    const requestData = JSON.parse(pm.request.body.raw);\r",
+                  "    pm.expect(responseData.userId).to.eql(requestData.userId);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 4: Verificar se products é array\r",
+                  "pm.test(\"Products is an array\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.products).to.be.an('array');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 5: Verificar data retornada\r",
+                  "pm.test(\"Date is present\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('date');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userId\": 1,\r\n    \"date\": \"2024-01-15\",\r\n    \"products\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"quantity\": 3\r\n        },\r\n        {\r\n            \"productId\": 2,\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"productId\": 3,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fakestoreapi.com/carts",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "carts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT Update Cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste 1: Status code\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 2: ID permanece o mesmo\r",
+                  "pm.test(\"Cart ID is still 1\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 3: Verificar se data foi atualizada\r",
+                  "pm.test(\"Date was updated\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.date).to.eql(\"2024-02-20\");\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 4: Verificar quantidade de produtos\r",
+                  "pm.test(\"Products count is 2\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.products.length).to.eql(2);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 5: Verificar primeiro produto\r",
+                  "pm.test(\"First product has correct quantity\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.products[0].quantity).to.eql(5);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"userId\": 1,\r\n    \"date\": \"2024-02-20\",\r\n    \"products\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"quantity\": 5\r\n        },\r\n        {\r\n            \"productId\": 4,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fakestoreapi.com/carts/1",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "carts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE Delete Cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste 1: Status code\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 2: Resposta contém o carrinho deletado\r",
+                  "pm.test(\"Response contains deleted cart\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('id');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 3: ID do carrinho deletado está correto\r",
+                  "pm.test(\"Deleted cart ID is 1\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 4: Verificar se tem userId\r",
+                  "pm.test(\"Deleted cart has userId\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('userId');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://fakestoreapi.com/carts/1",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "carts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "GET All Users",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste 1: Verificar status code\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 2: Verificar se resposta é um array\r",
+                  "pm.test(\"Response is an array\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.be.an('array');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 3: Verificar se array tem pelo menos 1 usuário\r",
+                  "pm.test(\"Array has at least 1 user\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.length).to.be.at.least(1);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 4: Verificar estrutura do primeiro usuário\r",
+                  "pm.test(\"First user has required fields\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    const firstUser = responseData[0];\r",
+                  "    pm.expect(firstUser).to.have.all.keys('id', 'username', 'email', 'password', 'name', 'address', 'phone');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 5: Verificar tipos dos campos básicos\r",
+                  "pm.test(\"User fields have correct types\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    const firstUser = responseData[0];\r",
+                  "    pm.expect(firstUser.id).to.be.a('number');\r",
+                  "    pm.expect(firstUser.username).to.be.a('string');\r",
+                  "    pm.expect(firstUser.email).to.be.a('string');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://fakestoreapi.com/users",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Single User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste 1: Status code\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 2: Verificar ID correto\r",
+                  "pm.test(\"User ID is 1\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 3: Verificar campos obrigatórios\r",
+                  "pm.test(\"User has required fields\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.all.keys('id', 'username', 'email', 'password', 'name', 'address', 'phone');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 4: Verificar username não está vazio\r",
+                  "pm.test(\"Username is not empty\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.username.length).to.be.greaterThan(0);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 5: Verificar formato do email\r",
+                  "pm.test(\"Email format is valid\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.email).to.include('@');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 6: Verificar name é um objeto\r",
+                  "pm.test(\"Name is an object with firstname and lastname\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.name).to.be.an('object');\r",
+                  "    pm.expect(responseData.name).to.have.all.keys('firstname', 'lastname');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://fakestoreapi.com/users/1",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Create User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste 1: Status code de sucesso\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 2: Verificar se retornou ID\r",
+                  "pm.test(\"Response contains an ID\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('id');\r",
+                  "    pm.expect(responseData.id).to.be.a('number');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 3: Verificar se username está correto\r",
+                  "pm.test(\"Username matches request\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.username).to.eql(\"usuario_teste_postman\");\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 4: Verificar se email está correto\r",
+                  "pm.test(\"Email matches request\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.email).to.eql(\"teste@email.com\");\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 5: Verificar estrutura do nome\r",
+                  "pm.test(\"Name object has firstname and lastname\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.name).to.be.an('object');\r",
+                  "    pm.expect(responseData.name.firstname).to.eql(\"João\");\r",
+                  "    pm.expect(responseData.name.lastname).to.eql(\"Silva\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"usuario_teste_postman\",\r\n    \"email\": \"teste@email.com\",\r\n    \"password\": \"senha123456\",\r\n    \"name\": {\r\n        \"firstname\": \"João\",\r\n        \"lastname\": \"Silva\"\r\n    },\r\n    \"phone\": \"11999999999\",\r\n    \"address\": {\r\n        \"city\": \"São Paulo\",\r\n        \"street\": \"Rua Teste\",\r\n        \"number\": 123,\r\n        \"zipcode\": \"01001-001\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fakestoreapi.com/users",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PUT Update User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste 1: Status code\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 2: ID permanece o mesmo\r",
+                  "pm.test(\"User ID is still 1\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 3: Verificar se username foi atualizado\r",
+                  "pm.test(\"Username was updated\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.username).to.eql(\"usuario_atualizado\");\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 4: Verificar se email foi atualizado\r",
+                  "pm.test(\"Email was updated\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.email).to.eql(\"atualizado@email.com\");\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 5: Verificar se nome foi atualizado\r",
+                  "pm.test(\"Firstname was updated to Maria\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.name.firstname).to.eql(\"Maria\");\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 6: Verificar se cidade foi atualizada\r",
+                  "pm.test(\"City was updated to Rio de Janeiro\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.address.city).to.eql(\"Rio de Janeiro\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"usuario_atualizado\",\r\n    \"email\": \"atualizado@email.com\",\r\n    \"password\": \"nova_senha789\",\r\n    \"name\": {\r\n        \"firstname\": \"Maria\",\r\n        \"lastname\": \"Santos\"\r\n    },\r\n    \"phone\": \"11888888888\",\r\n    \"address\": {\r\n        \"city\": \"Rio de Janeiro\",\r\n        \"street\": \"Av Atualizada\",\r\n        \"number\": 456,\r\n        \"zipcode\": \"20001-002\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fakestoreapi.com/users/1",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE Delete User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste 1: Status code\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 2: Resposta contém o usuário deletado\r",
+                  "pm.test(\"Response contains deleted user\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('id');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 3: ID do usuário deletado está correto\r",
+                  "pm.test(\"Deleted user ID is 1\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 4: Verificar se tem username\r",
+                  "pm.test(\"Deleted user has username\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('username');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 5: Verificar se tem email\r",
+                  "pm.test(\"Deleted user has email\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('email');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://fakestoreapi.com/users/1",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "POST Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// ==========================================\r",
+                  "// TESTE 1: Verificar status code de sucesso\r",
+                  "// ==========================================\r",
+                  "pm.test(\"Status code is 200 - Login successful\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// ==========================================\r",
+                  "// TESTE 2: Verificar se retornou um token\r",
+                  "// ==========================================\r",
+                  "pm.test(\"Response contains a token\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('token');\r",
+                  "});\r",
+                  "\r",
+                  "// ==========================================\r",
+                  "// TESTE 3: Verificar se token é uma string\r",
+                  "// ==========================================\r",
+                  "pm.test(\"Token is a string\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.token).to.be.a('string');\r",
+                  "});\r",
+                  "\r",
+                  "// ==========================================\r",
+                  "// TESTE 4: Verificar se token não está vazio\r",
+                  "// ==========================================\r",
+                  "pm.test(\"Token is not empty\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.token.length).to.be.greaterThan(0);\r",
+                  "});\r",
+                  "\r",
+                  "// ==========================================\r",
+                  "// TESTE 5: Verificar formato do token (JWT)\r",
+                  "// ==========================================\r",
+                  "pm.test(\"Token has JWT format (3 parts separated by dots)\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    const tokenParts = responseData.token.split('.');\r",
+                  "    pm.expect(tokenParts.length).to.eql(3);\r",
+                  "});\r",
+                  "\r",
+                  "// ==========================================\r",
+                  "// TESTE 6: Salvar token para usar em outras requests\r",
+                  "// ==========================================\r",
+                  "const jsonData = pm.response.json();\r",
+                  "if (jsonData.token) {\r",
+                  "    pm.environment.set(\"auth_token\", jsonData.token);\r",
+                  "    console.log(\"✅ Token salvo no ambiente:\", jsonData.token.substring(0, 20) + \"...\");\r",
+                  "}\r",
+                  "\r",
+                  "// ==========================================\r",
+                  "// TESTE 7: Verificar tempo de resposta\r",
+                  "// ==========================================\r",
+                  "pm.test(\"Response time is less than 1000ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"mor_2314\",\r\n    \"password\": \"83r5^_\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fakestoreapi.com/auth/login",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "POST Login - Invalid Credentials",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Teste 1: Verificar status code de erro\r",
+                  "pm.test(\"Status code is 401 - Unauthorized\", function () {\r",
+                  "    pm.response.to.have.status(401);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 2: Verificar se resposta contém mensagem de erro\r",
+                  "pm.test(\"Response contains error message\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('message');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 3: Verificar mensagem de erro específica\r",
+                  "pm.test(\"Error message is correct\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.message).to.include(\"Invalid\");\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 4: Verificar que NÃO tem token\r",
+                  "pm.test(\"Response does NOT contain token\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.not.have.property('token');\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"usuario_invalido\",\r\n    \"password\": \"senha_errada_123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://fakestoreapi.com/auth/login",
+              "protocol": "https",
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

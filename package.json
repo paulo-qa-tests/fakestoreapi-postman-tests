@@ -1,0 +1,19 @@
+{
+  "name": "fakestoreapi-postman-tests",
+  "version": "1.0.0",
+  "description": "Testes automatizados para FakeStoreAPI com Postman",
+  "main": "index.js",
+  "scripts": {
+    "test": "newman run collections/FakeStoreAPI_Complete_Tests.postman_collection.json -e environments/FakeStoreAPI_Environment.json",
+    "test:products": "newman run collections/FakeStoreAPI_Complete_Tests.postman_collection.json -e environments/FakeStoreAPI_Environment.json --folder Products",
+    "test:carts": "newman run collections/FakeStoreAPI_Complete_Tests.postman_collection.json -e environments/FakeStoreAPI_Environment.json --folder Carts",
+    "test:users": "newman run collections/FakeStoreAPI_Complete_Tests.postman_collection.json -e environments/FakeStoreAPI_Environment.json --folder Users",
+    "test:auth": "newman run collections/FakeStoreAPI_Complete_Tests.postman_collection.json -e environments/FakeStoreAPI_Environment.json --folder Auth"
+  },
+  "keywords": ["postman", "api-testing", "newman", "github-actions", "fake-store-api"],
+  "author": "Paulo Henrique",
+  "license": "MIT",
+  "devDependencies": {
+    "newman": "^6.0.0"
+  }
+}
