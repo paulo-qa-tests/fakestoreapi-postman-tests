@@ -15,18 +15,30 @@ jobs:
       - name: 📥 Baixar código
         uses: actions/checkout@v4
       
+      - name: 📂 Verificar arquivos
+        run: |
+          echo "===== ESTRUTURA DE PASTAS ====="
+          ls -la
+          echo ""
+          echo "===== PASTA COLLECTIONS ====="
+          ls -la collections/ || echo "❌ PASTA collections NÃO ENCONTRADA"
+          echo ""
+          echo "===== PASTA ENVIRONMENTS ====="
+          ls -la environments/ || echo "❌ PASTA environments NÃO ENCONTRADA"
+      
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          
+          node-version: '18'
+      
       - name: 📦 Instalar Newman
         run: |
           npm install -g newman
-          newman --version
+          echo "Newman versão: $(newman --version)"
       
       - name: 🧪 Executar testes
         run: |
           newman run collections/FakeStoreAPI_Complete_Tests.postman_collection.json \
             -e environments/FakeStoreAPI_Environment.json \
-            --reporters cli
+            --reporters cli \
+            --verbose
