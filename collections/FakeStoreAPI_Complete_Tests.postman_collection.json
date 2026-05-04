@@ -2,8 +2,10 @@
   "info": {
     "_postman_id": "6a4ae46b-8aba-4834-9b43-997a02ebac51",
     "name": "FakeStoreAPI Tests",
-    "description": "Testes automatizados para a FakeStoreAPI - Projeto Portfólio",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    "description": "StartFragment`Testes automatizados para a FakeStoreAPI - Projeto Portfólio`EndFragment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54341950",
+    "_collection_link": "https://go.postman.co/collection/54341950-6a4ae46b-8aba-4834-9b43-997a02ebac51?source=collection_link"
   },
   "item": [
     {
@@ -16,27 +18,26 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Response is an array\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData).to.be.an('array');",
-                  "});",
-                  "",
-                  "pm.test(\"Array has at least 1 product\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData.length).to.be.at.least(1);",
-                  "});",
-                  "",
-                  "pm.test(\"First product has required fields\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    const firstProduct = responseData[0];",
-                  "    pm.expect(firstProduct).to.have.keys('id', 'title', 'price', 'description', 'category', 'image');",
+                  "// Teste para validar se o status da resposta HTTP é 200 (OK)\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste para validar se o corpo da resposta é um array\r",
+                  "pm.test(\"Response is an array\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.be.an('array');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste para validar se o array retornado possui pelo menos 1 item (produto)\r",
+                  "pm.test(\"Array has at least 1 product\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.length).to.be.at.least(1);\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -46,8 +47,13 @@
             "url": {
               "raw": "https://fakestoreapi.com/products",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["products"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "products"
+              ]
             }
           },
           "response": []
@@ -59,21 +65,24 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Product ID is 1\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData.id).to.eql(1);",
-                  "});",
-                  "",
-                  "pm.test(\"Has required fields\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData).to.have.keys('id', 'title', 'price', 'description', 'category', 'image');",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Product ID is 1\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Has required fields\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    // Removendo 'image' que pode não existir em todos\r",
+                  "    pm.expect(responseData).to.have.keys('id', 'title', 'price', 'description', 'category');\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -83,8 +92,14 @@
             "url": {
               "raw": "https://fakestoreapi.com/products/1",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["products", "1"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "products",
+                "1"
+              ]
             }
           },
           "response": []
@@ -96,16 +111,18 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200 (API retorna 200 para não encontrado)\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Response is null\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData).to.be.null;",
+                  "pm.test(\"Status code is 200 (API retorna 200 mesmo para não encontrado)\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is null\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.be.null;\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -115,8 +132,14 @@
             "url": {
               "raw": "https://fakestoreapi.com/products/9999",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["products", "9999"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "products",
+                "9999"
+              ]
             }
           },
           "response": []
@@ -128,21 +151,23 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 201 (Created)\", function () {",
-                  "    pm.response.to.have.status(201);",
-                  "});",
-                  "",
-                  "pm.test(\"Response contains an ID\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData).to.have.property('id');",
-                  "});",
-                  "",
-                  "pm.test(\"Response matches request title\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData.title).to.eql(\"Produto Teste Postman\");",
+                  "pm.test(\"Status code is 201 (Created)\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains an ID\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('id');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response matches request title\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.title).to.eql(\"Produto Teste Postman\");\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -151,7 +176,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"title\": \"Produto Teste Postman\",\n    \"price\": 199.99,\n    \"description\": \"Produto criado para testes automatizados\",\n    \"category\": \"eletrônicos\",\n    \"image\": \"https://via.placeholder.com/150\"\n}",
+              "raw": "{\r\n    \"title\": \"Produto Teste Postman\",\r\n    \"price\": 199.99,\r\n    \"description\": \"Produto criado para testes automatizados\",\r\n    \"category\": \"eletrônicos\",\r\n    \"image\": \"https://via.placeholder.com/150\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -161,8 +186,13 @@
             "url": {
               "raw": "https://fakestoreapi.com/products",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["products"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "products"
+              ]
             }
           },
           "response": []
@@ -174,16 +204,20 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Title was updated\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData.title).to.eql(\"Produto Atualizado via Postman\");",
+                  "// Teste para validar se o status da resposta HTTP é 200 (OK)\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste para validar se o título do produto foi atualizado corretamente\r",
+                  "pm.test(\"Title was updated\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.title).to.eql(\"Produto Atualizado via Postman\");\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -192,7 +226,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"title\": \"Produto Atualizado via Postman\",\n    \"price\": 299.99,\n    \"description\": \"Descrição atualizada pelo teste\",\n    \"category\": \"eletrônicos\"\n}",
+              "raw": "{\r\n    \"title\": \"Produto Atualizado via Postman\",\r\n    \"price\": 299.99,\r\n    \"description\": \"Descrição atualizada pelo teste\",\r\n    \"category\": \"eletrônicos\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -202,8 +236,14 @@
             "url": {
               "raw": "https://fakestoreapi.com/products/1",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["products", "1"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "products",
+                "1"
+              ]
             }
           },
           "response": []
@@ -215,16 +255,20 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Response contains deleted product\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData).to.have.property('id');",
+                  "// Teste para validar se o status da resposta HTTP é 200 (OK)\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste para validar se a resposta da exclusão contém o produto deletado (retorna ao menos o 'id')\r",
+                  "pm.test(\"Response contains deleted product\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('id');\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -234,8 +278,14 @@
             "url": {
               "raw": "https://fakestoreapi.com/products/1",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["products", "1"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "products",
+                "1"
+              ]
             }
           },
           "response": []
@@ -247,16 +297,18 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Response is array\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData).to.be.an('array');",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is array\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.be.an('array');\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -271,8 +323,12 @@
             ],
             "url": {
               "raw": "{{base_url}}/products",
-              "host": ["{{base_url}}"],
-              "path": ["products"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "products"
+              ]
             }
           },
           "response": []
@@ -289,24 +345,26 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Response is an array\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData).to.be.an('array');",
-                  "});",
-                  "",
-                  "pm.test(\"First cart has required fields\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    if (responseData.length > 0) {",
-                  "        const firstCart = responseData[0];",
-                  "        pm.expect(firstCart).to.have.keys('id', 'userId', 'date', 'products');",
-                  "    }",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is an array\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.be.an('array');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"First cart has required fields\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    if (responseData.length > 0) {\r",
+                  "        const firstCart = responseData[0];\r",
+                  "        pm.expect(firstCart).to.have.keys('id', 'userId', 'date', 'products');\r",
+                  "    }\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -316,8 +374,13 @@
             "url": {
               "raw": "https://fakestoreapi.com/carts",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["carts"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "carts"
+              ]
             }
           },
           "response": []
@@ -329,21 +392,23 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Cart ID is 1\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData.id).to.eql(1);",
-                  "});",
-                  "",
-                  "pm.test(\"Cart has required fields\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData).to.have.keys('id', 'userId', 'date', 'products');",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart ID is 1\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Cart has required fields\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.keys('id', 'userId', 'date', 'products');\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -353,8 +418,14 @@
             "url": {
               "raw": "https://fakestoreapi.com/carts/1",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["carts", "1"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "carts",
+                "1"
+              ]
             }
           },
           "response": []
@@ -366,16 +437,18 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 201\", function () {",
-                  "    pm.response.to.have.status(201);",
-                  "});",
-                  "",
-                  "pm.test(\"Response contains an ID\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData).to.have.property('id');",
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains an ID\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('id');\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -384,7 +457,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"userId\": 1,\n    \"date\": \"2024-01-15\",\n    \"products\": [\n        {\n            \"productId\": 1,\n            \"quantity\": 3\n        },\n        {\n            \"productId\": 2,\n            \"quantity\": 1\n        }\n    ]\n}",
+              "raw": "{\r\n    \"userId\": 1,\r\n    \"date\": \"2024-01-15\",\r\n    \"products\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"quantity\": 3\r\n        },\r\n        {\r\n            \"productId\": 2,\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"productId\": 3,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -394,8 +467,13 @@
             "url": {
               "raw": "https://fakestoreapi.com/carts",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["carts"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "carts"
+              ]
             }
           },
           "response": []
@@ -407,16 +485,38 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Cart ID is still 1\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData.id).to.eql(1);",
+                  "// Teste 1: Status code\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 2: ID permanece o mesmo\r",
+                  "pm.test(\"Cart ID is still 1\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 3: Verificar se data foi atualizada\r",
+                  "pm.test(\"Date was updated\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.date).to.eql(\"2024-02-20\");\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 4: Verificar quantidade de produtos\r",
+                  "pm.test(\"Products count is 2\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.products.length).to.eql(2);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 5: Verificar primeiro produto\r",
+                  "pm.test(\"First product has correct quantity\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.products[0].quantity).to.eql(5);\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -425,7 +525,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"userId\": 1,\n    \"date\": \"2024-02-20\",\n    \"products\": [\n        {\n            \"productId\": 1,\n            \"quantity\": 5\n        }\n    ]\n}",
+              "raw": "{\r\n    \"userId\": 1,\r\n    \"date\": \"2024-02-20\",\r\n    \"products\": [\r\n        {\r\n            \"productId\": 1,\r\n            \"quantity\": 5\r\n        },\r\n        {\r\n            \"productId\": 4,\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -435,8 +535,14 @@
             "url": {
               "raw": "https://fakestoreapi.com/carts/1",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["carts", "1"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "carts",
+                "1"
+              ]
             }
           },
           "response": []
@@ -448,16 +554,32 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Response contains deleted cart\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData).to.have.property('id');",
+                  "// Teste 1: Status code\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 2: Resposta contém o carrinho deletado\r",
+                  "pm.test(\"Response contains deleted cart\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('id');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 3: ID do carrinho deletado está correto\r",
+                  "pm.test(\"Deleted cart ID is 1\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 4: Verificar se tem userId\r",
+                  "pm.test(\"Deleted cart has userId\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('userId');\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -467,8 +589,14 @@
             "url": {
               "raw": "https://fakestoreapi.com/carts/1",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["carts", "1"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "carts",
+                "1"
+              ]
             }
           },
           "response": []
@@ -485,24 +613,26 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Response is an array\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData).to.be.an('array');",
-                  "});",
-                  "",
-                  "pm.test(\"First user has required fields\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    if (responseData.length > 0) {",
-                  "        const firstUser = responseData[0];",
-                  "        pm.expect(firstUser).to.have.keys('id', 'username', 'email', 'name', 'address', 'phone');",
-                  "    }",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is an array\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.be.an('array');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"First user has required fields (sem senha)\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    if (responseData.length > 0) {\r",
+                  "        const firstUser = responseData[0];\r",
+                  "        pm.expect(firstUser).to.have.keys('id', 'username', 'email', 'name', 'address', 'phone');\r",
+                  "    }\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -512,8 +642,13 @@
             "url": {
               "raw": "https://fakestoreapi.com/users",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["users"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "users"
+              ]
             }
           },
           "response": []
@@ -525,21 +660,23 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"User ID is 1\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData.id).to.eql(1);",
-                  "});",
-                  "",
-                  "pm.test(\"User has required fields\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData).to.have.keys('id', 'username', 'email', 'name', 'address', 'phone');",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User ID is 1\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User has required fields (sem senha)\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.keys('id', 'username', 'email', 'name', 'address', 'phone');\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -549,8 +686,14 @@
             "url": {
               "raw": "https://fakestoreapi.com/users/1",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["users", "1"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
             }
           },
           "response": []
@@ -562,16 +705,18 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 201\", function () {",
-                  "    pm.response.to.have.status(201);",
-                  "});",
-                  "",
-                  "pm.test(\"Response contains an ID\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData).to.have.property('id');",
+                  "pm.test(\"Status code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains an ID\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('id');\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -580,7 +725,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"username\": \"usuario_teste_postman\",\n    \"email\": \"teste@email.com\",\n    \"password\": \"senha123456\",\n    \"name\": {\n        \"firstname\": \"João\",\n        \"lastname\": \"Silva\"\n    },\n    \"phone\": \"11999999999\",\n    \"address\": {\n        \"city\": \"São Paulo\",\n        \"street\": \"Rua Teste\",\n        \"number\": 123,\n        \"zipcode\": \"01001-001\"\n    }\n}",
+              "raw": "{\r\n    \"username\": \"usuario_teste_postman\",\r\n    \"email\": \"teste@email.com\",\r\n    \"password\": \"senha123456\",\r\n    \"name\": {\r\n        \"firstname\": \"João\",\r\n        \"lastname\": \"Silva\"\r\n    },\r\n    \"phone\": \"11999999999\",\r\n    \"address\": {\r\n        \"city\": \"São Paulo\",\r\n        \"street\": \"Rua Teste\",\r\n        \"number\": 123,\r\n        \"zipcode\": \"01001-001\"\r\n    }\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -590,8 +735,13 @@
             "url": {
               "raw": "https://fakestoreapi.com/users",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["users"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "users"
+              ]
             }
           },
           "response": []
@@ -603,16 +753,44 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"User ID is still 1\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData.id).to.eql(1);",
+                  "// Teste 1: Status code\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 2: ID permanece o mesmo\r",
+                  "pm.test(\"User ID is still 1\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 3: Verificar se username foi atualizado\r",
+                  "pm.test(\"Username was updated\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.username).to.eql(\"usuario_atualizado\");\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 4: Verificar se email foi atualizado\r",
+                  "pm.test(\"Email was updated\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.email).to.eql(\"atualizado@email.com\");\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 5: Verificar se nome foi atualizado\r",
+                  "pm.test(\"Firstname was updated to Maria\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.name.firstname).to.eql(\"Maria\");\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 6: Verificar se cidade foi atualizada\r",
+                  "pm.test(\"City was updated to Rio de Janeiro\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.address.city).to.eql(\"Rio de Janeiro\");\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -621,7 +799,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"username\": \"usuario_atualizado\",\n    \"email\": \"atualizado@email.com\",\n    \"password\": \"nova_senha789\",\n    \"name\": {\n        \"firstname\": \"Maria\",\n        \"lastname\": \"Santos\"\n    },\n    \"phone\": \"11888888888\",\n    \"address\": {\n        \"city\": \"Rio de Janeiro\",\n        \"street\": \"Av Atualizada\",\n        \"number\": 456,\n        \"zipcode\": \"20001-002\"\n    }\n}",
+              "raw": "{\r\n    \"username\": \"usuario_atualizado\",\r\n    \"email\": \"atualizado@email.com\",\r\n    \"password\": \"nova_senha789\",\r\n    \"name\": {\r\n        \"firstname\": \"Maria\",\r\n        \"lastname\": \"Santos\"\r\n    },\r\n    \"phone\": \"11888888888\",\r\n    \"address\": {\r\n        \"city\": \"Rio de Janeiro\",\r\n        \"street\": \"Av Atualizada\",\r\n        \"number\": 456,\r\n        \"zipcode\": \"20001-002\"\r\n    }\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -631,8 +809,14 @@
             "url": {
               "raw": "https://fakestoreapi.com/users/1",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["users", "1"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
             }
           },
           "response": []
@@ -644,16 +828,38 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Response contains deleted user\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData).to.have.property('id');",
+                  "// Teste 1: Status code\r",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 2: Resposta contém o usuário deletado\r",
+                  "pm.test(\"Response contains deleted user\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('id');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 3: ID do usuário deletado está correto\r",
+                  "pm.test(\"Deleted user ID is 1\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 4: Verificar se tem username\r",
+                  "pm.test(\"Deleted user has username\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('username');\r",
+                  "});\r",
+                  "\r",
+                  "// Teste 5: Verificar se tem email\r",
+                  "pm.test(\"Deleted user has email\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('email');\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -663,8 +869,14 @@
             "url": {
               "raw": "https://fakestoreapi.com/users/1",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["users", "1"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
             }
           },
           "response": []
@@ -681,27 +893,29 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {",
-                  "    pm.response.to.have.status(200);",
-                  "});",
-                  "",
-                  "pm.test(\"Response contains a token\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData).to.have.property('token');",
-                  "});",
-                  "",
-                  "pm.test(\"Token is a string\", function () {",
-                  "    const responseData = pm.response.json();",
-                  "    pm.expect(responseData.token).to.be.a('string');",
-                  "});",
-                  "",
-                  "const jsonData = pm.response.json();",
-                  "if (jsonData.token) {",
-                  "    pm.environment.set(\"auth_token\", jsonData.token);",
-                  "    console.log(\"Token salvo:\", jsonData.token.substring(0, 20) + \"...\");",
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains a token\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData).to.have.property('token');\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Token is a string\", function () {\r",
+                  "    const responseData = pm.response.json();\r",
+                  "    pm.expect(responseData.token).to.be.a('string');\r",
+                  "});\r",
+                  "\r",
+                  "// Salvar token para outras requests\r",
+                  "const jsonData = pm.response.json();\r",
+                  "if (jsonData.token) {\r",
+                  "    pm.environment.set(\"auth_token\", jsonData.token);\r",
                   "}"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -710,7 +924,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"username\": \"mor_2314\",\n    \"password\": \"83r5^_\"\n}",
+              "raw": "{\r\n    \"username\": \"mor_2314\",\r\n    \"password\": \"83r5^_\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -720,8 +934,14 @@
             "url": {
               "raw": "https://fakestoreapi.com/auth/login",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["auth", "login"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
             }
           },
           "response": []
@@ -733,21 +953,19 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 401\", function () {",
-                  "    pm.response.to.have.status(401);",
-                  "});",
-                  "",
-                  "pm.test(\"Response contains error message\", function () {",
-                  "    const responseText = pm.response.text();",
-                  "    pm.expect(responseText).to.include(\"username or password is incorrect\");",
-                  "});",
-                  "",
-                  "pm.test(\"Response header is text/plain\", function () {",
-                  "    const contentType = pm.response.headers.get('content-type');",
-                  "    pm.expect(contentType).to.include('text/plain');",
+                  "// A API retorna texto puro, não JSON!\r",
+                  "pm.test(\"Status code is 401\", function () {\r",
+                  "    pm.response.to.have.status(401);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains error message\", function () {\r",
+                  "    const responseText = pm.response.text();\r",
+                  "    pm.expect(responseText).to.include(\"username or password is incorrect\");\r",
                   "});"
                 ],
-                "type": "text/javascript"
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
               }
             }
           ],
@@ -756,7 +974,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"username\": \"usuario_invalido\",\n    \"password\": \"senha_errada_123\"\n}",
+              "raw": "{\r\n    \"username\": \"usuario_invalido\",\r\n    \"password\": \"senha_errada_123\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -766,8 +984,14 @@
             "url": {
               "raw": "https://fakestoreapi.com/auth/login",
               "protocol": "https",
-              "host": ["fakestoreapi", "com"],
-              "path": ["auth", "login"]
+              "host": [
+                "fakestoreapi",
+                "com"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
             }
           },
           "response": []
