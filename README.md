@@ -103,3 +103,5 @@ cd fakestoreapi-postman-tests
 # 4. Selecione o ambiente "FakeStoreAPI Environment"
 # 5. Execute a collection ou requests individuais
 ## Atualização - Mon May  4 16:27:01 HPBA 2026
+
+[![Testes](https://img.shields.io/badge/Status-Passing-brightgreen)]()
