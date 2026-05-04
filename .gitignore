@@ -30,4 +30,4 @@ npm-debug.log*
 
 # Ambiente
 .env
-.env.local
+.env.local# Comentário adicionado
