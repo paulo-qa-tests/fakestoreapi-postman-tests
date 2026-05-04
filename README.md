@@ -13,10 +13,11 @@
 
 [📊 Cobertura](#-cobertura-de-testes) • 
 [🚀 Execução](#-como-executar) • 
-[🤖 CI/CD](#-cicd-com-github-actions) • 
-[📁 Estrutura](#-estrutura-do-projeto)
-
 </div>
+
+🎥 Demonstração dos Testes
+
+![Execução dos Testes](https://github.com/paulo-qa-tests/fakestoreapi-postman-tests/blob/effa81e5274c756caf75c9047b0b98271f52c634/assets/FakeStoreAPI%20Tests.gif)
 
 ---
 
