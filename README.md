@@ -106,3 +106,4 @@ cd fakestoreapi-postman-tests
 
 [![Testes](https://img.shields.io/badge/Status-Passing-brightgreen)]()
 ## Pull Shark PR #1 - Mon May  4 16:40:20 HPBA 2026
+  - ✅ Teste automatizado
