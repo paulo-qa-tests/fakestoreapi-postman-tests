@@ -87,3 +87,17 @@ node --version  # v18 ou superior
 
 # Postman (para visualizar/editar testes)
 # Baixe em: https://www.postman.com/downloads/
+
+🚀 Como Executar
+🔹 Opção 1: Via Postman (Recomendado para desenvolvimento)
+# 1. Clone o repositório
+git clone https://github.com/paulo-qa-tests/fakestoreapi-postman-tests.git
+cd fakestoreapi-postman-tests
+
+# 2. Abra o Postman
+# 3. Importe os arquivos:
+#    - collections/FakeStoreAPI_Complete_Tests.postman_collection.json
+#    - environments/FakeStoreAPI_Environment.json
+
+# 4. Selecione o ambiente "FakeStoreAPI Environment"
+# 5. Execute a collection ou requests individuais
